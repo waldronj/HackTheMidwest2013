@@ -9,18 +9,19 @@
 
 namespace HackMW2013.Models
 {
+    #pragma warning disable 1573
     using System;
     using System.Collections.Generic;
     
     public partial class Chat
     {
         public int Id { get; set; }
-        public int OwnerID { get; set; }
-        public int TreeID { get; set; }
-        public int TreeMemberID { get; set; }
         public string Messege { get; set; }
         public System.TimeSpan TimeStamp { get; set; }
+        public int TreeId { get; set; }
+        public int MemberId { get; set; }
     
-        public virtual TreeOwner TreeOwner { get; set; }
+        public virtual Tree Tree { get; set; }
+        public virtual Member Member { get; set; }
     }
 }

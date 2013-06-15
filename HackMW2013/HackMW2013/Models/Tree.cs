@@ -9,23 +9,24 @@
 
 namespace HackMW2013.Models
 {
+    #pragma warning disable 1573
     using System;
     using System.Collections.Generic;
     
-    public partial class TreeOwner
+    public partial class Tree
     {
-        public TreeOwner()
+        public Tree()
         {
+            this.Members = new HashSet<TreeMember>();
             this.Chats = new HashSet<Chat>();
-            this.TreeMembers = new HashSet<TreeMember>();
         }
     
         public int Id { get; set; }
-        public int TreeMemberID { get; set; }
-        public string OwnerID { get; set; }
-        public int ListID { get; set; }
+        public string Name { get; set; }
+        public int OwnerId { get; set; }
     
+        public virtual Member Owner { get; set; }
+        public virtual ICollection<TreeMember> Members { get; set; }
         public virtual ICollection<Chat> Chats { get; set; }
-        public virtual ICollection<TreeMember> TreeMembers { get; set; }
     }
 }

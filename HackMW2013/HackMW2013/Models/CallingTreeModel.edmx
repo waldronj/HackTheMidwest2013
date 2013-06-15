@@ -6,24 +6,32 @@
     <edmx:StorageModels>
     <Schema Namespace="CallingTreeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="CallingTreeModelStoreContainer">
-    <EntitySet Name="TreeMembers" EntityType="CallingTreeModel.Store.TreeMembers" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TreeOwners" EntityType="CallingTreeModel.Store.TreeOwners" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Members" EntityType="CallingTreeModel.Store.Members" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Chats" EntityType="CallingTreeModel.Store.Chats" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TreeMemberTreeOwner" EntityType="CallingTreeModel.Store.TreeMemberTreeOwner" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="ChatTreeOwner" Association="CallingTreeModel.Store.ChatTreeOwner">
-      <End Role="Chat" EntitySet="Chats" />
-      <End Role="TreeOwner" EntitySet="TreeOwners" />
+    <EntitySet Name="Trees" EntityType="CallingTreeModel.Store.Trees" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TreeMembers" EntityType="CallingTreeModel.Store.TreeMembers" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="TreeMember1" Association="CallingTreeModel.Store.TreeOwner">
+      <End Role="Tree" EntitySet="Trees" />
+      <End Role="Member" EntitySet="Members" />
     </AssociationSet>
-    <AssociationSet Name="FK_TreeMemberTreeOwner_TreeMember" Association="CallingTreeModel.Store.FK_TreeMemberTreeOwner_TreeMember">
+    <AssociationSet Name="TreeTreeMember" Association="CallingTreeModel.Store.TreeTreeMember">
+      <End Role="Tree" EntitySet="Trees" />
       <End Role="TreeMember" EntitySet="TreeMembers" />
-      <End Role="TreeMemberTreeOwner" EntitySet="TreeMemberTreeOwner" />
     </AssociationSet>
-    <AssociationSet Name="FK_TreeMemberTreeOwner_TreeOwner" Association="CallingTreeModel.Store.FK_TreeMemberTreeOwner_TreeOwner">
-      <End Role="TreeOwner" EntitySet="TreeOwners" />
-      <End Role="TreeMemberTreeOwner" EntitySet="TreeMemberTreeOwner" />
+    <AssociationSet Name="TreeMemberMember" Association="CallingTreeModel.Store.TreeMemberMember">
+      <End Role="TreeMember" EntitySet="TreeMembers" />
+      <End Role="Member" EntitySet="Members" />
+    </AssociationSet>
+    <AssociationSet Name="TreeChat" Association="CallingTreeModel.Store.TreeChat">
+      <End Role="Tree" EntitySet="Trees" />
+      <End Role="Chat" EntitySet="Chats" />
+    </AssociationSet>
+    <AssociationSet Name="ChatMember" Association="CallingTreeModel.Store.ChatMember">
+      <End Role="Chat" EntitySet="Chats" />
+      <End Role="Member" EntitySet="Members" />
     </AssociationSet>
   </EntityContainer>
-  <EntityType Name="TreeMembers">
+  <EntityType Name="Members">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -31,70 +39,90 @@
     <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="300" />
     <Property Name="PhoneNumber" Type="nvarchar" Nullable="false" MaxLength="16" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="IsOwner" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="TreeOwners">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TreeMemberID" Type="int" Nullable="false" />
-    <Property Name="OwnerID" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ListID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Chats">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="OwnerID" Type="int" Nullable="false" />
-    <Property Name="TreeID" Type="int" Nullable="false" />
-    <Property Name="TreeMemberID" Type="int" Nullable="false" />
     <Property Name="Messege" Type="nvarchar(max)" Nullable="false" />
     <Property Name="TimeStamp" Type="time" Nullable="false" />
-    <Property Name="TreeOwner_Id" Type="int" Nullable="false" />
+    <Property Name="TreeId" Type="int" Nullable="false" />
+    <Property Name="MemberId" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="TreeMemberTreeOwner">
+  <EntityType Name="Trees">
     <Key>
-      <PropertyRef Name="TreeMembers_Id" />
-      <PropertyRef Name="TreeOwners_Id" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="TreeMembers_Id" Type="int" Nullable="false" />
-    <Property Name="TreeOwners_Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OwnerId" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="ChatTreeOwner">
-    <End Role="Chat" Type="CallingTreeModel.Store.Chats" Multiplicity="*" />
-    <End Role="TreeOwner" Type="CallingTreeModel.Store.TreeOwners" Multiplicity="1" />
+  <EntityType Name="TreeMembers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TreeId" Type="int" Nullable="false" />
+    <Property Name="MemberId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="TreeOwner">
+    <End Role="Tree" Type="CallingTreeModel.Store.Trees" Multiplicity="*" />
+    <End Role="Member" Type="CallingTreeModel.Store.Members" Multiplicity="1" />
     <ReferentialConstraint>
-      <Principal Role="TreeOwner">
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tree">
+        <PropertyRef Name="OwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TreeTreeMember">
+    <End Role="Tree" Type="CallingTreeModel.Store.Trees" Multiplicity="1" />
+    <End Role="TreeMember" Type="CallingTreeModel.Store.TreeMembers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tree">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TreeMember">
+        <PropertyRef Name="TreeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TreeMemberMember">
+    <End Role="TreeMember" Type="CallingTreeModel.Store.TreeMembers" Multiplicity="*" />
+    <End Role="Member" Type="CallingTreeModel.Store.Members" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TreeMember">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TreeChat">
+    <End Role="Tree" Type="CallingTreeModel.Store.Trees" Multiplicity="1" />
+    <End Role="Chat" Type="CallingTreeModel.Store.Chats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tree">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Chat">
-        <PropertyRef Name="TreeOwner_Id" />
+        <PropertyRef Name="TreeId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_TreeMemberTreeOwner_TreeMember">
-    <End Role="TreeMember" Type="CallingTreeModel.Store.TreeMembers" Multiplicity="1" />
-    <End Role="TreeMemberTreeOwner" Type="CallingTreeModel.Store.TreeMemberTreeOwner" Multiplicity="*" />
+  <Association Name="ChatMember">
+    <End Role="Chat" Type="CallingTreeModel.Store.Chats" Multiplicity="*" />
+    <End Role="Member" Type="CallingTreeModel.Store.Members" Multiplicity="1" />
     <ReferentialConstraint>
-      <Principal Role="TreeMember">
+      <Principal Role="Member">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="TreeMemberTreeOwner">
-        <PropertyRef Name="TreeMembers_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TreeMemberTreeOwner_TreeOwner">
-    <End Role="TreeMemberTreeOwner" Type="CallingTreeModel.Store.TreeMemberTreeOwner" Multiplicity="*" />
-    <End Role="TreeOwner" Type="CallingTreeModel.Store.TreeOwners" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="TreeOwner">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="TreeMemberTreeOwner">
-        <PropertyRef Name="TreeOwners_Id" />
+      <Dependent Role="Chat">
+        <PropertyRef Name="MemberId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -103,19 +131,32 @@
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="CallingTreeModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="CallingTreeModelContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="TreeMembers" EntityType="CallingTreeModel.TreeMember" />
-          <EntitySet Name="TreeOwners" EntityType="CallingTreeModel.TreeOwner" />
+          <EntitySet Name="Members" EntityType="CallingTreeModel.Member" />
           <EntitySet Name="Chats" EntityType="CallingTreeModel.Chat" />
-          <AssociationSet Name="ChatTreeOwner" Association="CallingTreeModel.ChatTreeOwner">
-            <End Role="Chat" EntitySet="Chats" />
-            <End Role="TreeOwner" EntitySet="TreeOwners" />
+          <EntitySet Name="Trees" EntityType="CallingTreeModel.Tree" />
+          <EntitySet Name="TreeMembers" EntityType="CallingTreeModel.TreeMember" />
+          <AssociationSet Name="TreeMember1" Association="CallingTreeModel.TreeOwner">
+            <End Role="Tree" EntitySet="Trees" />
+            <End Role="Member" EntitySet="Members" />
           </AssociationSet>
-          <AssociationSet Name="TreeMemberTreeOwner" Association="CallingTreeModel.TreeMemberTreeOwner">
+          <AssociationSet Name="TreeTreeMember" Association="CallingTreeModel.TreeTreeMember">
+            <End Role="Tree" EntitySet="Trees" />
             <End Role="TreeMember" EntitySet="TreeMembers" />
-            <End Role="TreeOwner" EntitySet="TreeOwners" />
+          </AssociationSet>
+          <AssociationSet Name="TreeMemberMember" Association="CallingTreeModel.TreeMemberMember">
+            <End Role="TreeMember" EntitySet="TreeMembers" />
+            <End Role="Member" EntitySet="Members" />
+          </AssociationSet>
+          <AssociationSet Name="TreeChat" Association="CallingTreeModel.TreeChat">
+            <End Role="Tree" EntitySet="Trees" />
+            <End Role="Chat" EntitySet="Chats" />
+          </AssociationSet>
+          <AssociationSet Name="ChatMember" Association="CallingTreeModel.ChatMember">
+            <End Role="Chat" EntitySet="Chats" />
+            <End Role="Member" EntitySet="Members" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="TreeMember">
+        <EntityType Name="Member">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -123,39 +164,101 @@
           <Property Type="String" Name="Name" Nullable="false" MaxLength="300" />
           <Property Type="String" Name="PhoneNumber" Nullable="false" MaxLength="16" />
           <Property Type="String" Name="Email" Nullable="false" />
-          <Property Type="Boolean" Name="IsOwner" Nullable="false" />
-          <NavigationProperty Name="TreeOwners" Relationship="CallingTreeModel.TreeMemberTreeOwner" FromRole="TreeMember" ToRole="TreeOwner" />
-        </EntityType>
-        <EntityType Name="TreeOwner">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="TreeMemberID" Nullable="false" />
-          <Property Type="String" Name="OwnerID" Nullable="false" />
-          <Property Type="Int32" Name="ListID" Nullable="false" />
-          <NavigationProperty Name="Chats" Relationship="CallingTreeModel.ChatTreeOwner" FromRole="TreeOwner" ToRole="Chat" />
-          <NavigationProperty Name="TreeMembers" Relationship="CallingTreeModel.TreeMemberTreeOwner" FromRole="TreeOwner" ToRole="TreeMember" />
+          <NavigationProperty Name="Trees" Relationship="CallingTreeModel.TreeMemberMember" FromRole="Member" ToRole="TreeMember" />
+          <NavigationProperty Name="Chats" Relationship="CallingTreeModel.ChatMember" FromRole="Member" ToRole="Chat" />
         </EntityType>
         <EntityType Name="Chat">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-          <Property Type="Int32" Name="TreeID" Nullable="false" />
-          <Property Type="Int32" Name="TreeMemberID" Nullable="false" />
           <Property Type="String" Name="Messege" Nullable="false" />
           <Property Type="Time" Name="TimeStamp" Nullable="false" />
-          <NavigationProperty Name="TreeOwner" Relationship="CallingTreeModel.ChatTreeOwner" FromRole="Chat" ToRole="TreeOwner" />
+          <NavigationProperty Name="Tree" Relationship="CallingTreeModel.TreeChat" FromRole="Chat" ToRole="Tree" />
+          <Property Type="Int32" Name="TreeId" Nullable="false" />
+          <NavigationProperty Name="Member" Relationship="CallingTreeModel.ChatMember" FromRole="Chat" ToRole="Member" />
+          <Property Type="Int32" Name="MemberId" Nullable="false" />
         </EntityType>
-        <Association Name="ChatTreeOwner">
-          <End Type="CallingTreeModel.Chat" Role="Chat" Multiplicity="*" />
-          <End Type="CallingTreeModel.TreeOwner" Role="TreeOwner" Multiplicity="1" />
+        <EntityType Name="Tree">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <NavigationProperty Name="Owner" Relationship="CallingTreeModel.TreeOwner" FromRole="Tree" ToRole="Member" />
+          <Property Type="Int32" Name="OwnerId" Nullable="false" />
+          <NavigationProperty Name="Members" Relationship="CallingTreeModel.TreeTreeMember" FromRole="Tree" ToRole="TreeMember" />
+          <NavigationProperty Name="Chats" Relationship="CallingTreeModel.TreeChat" FromRole="Tree" ToRole="Chat" />
+          </EntityType>
+        <EntityType Name="TreeMember">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Tree" Relationship="CallingTreeModel.TreeTreeMember" FromRole="TreeMember" ToRole="Tree" />
+          <Property Type="Int32" Name="TreeId" Nullable="false" />
+          <NavigationProperty Name="Member" Relationship="CallingTreeModel.TreeMemberMember" FromRole="TreeMember" ToRole="Member" />
+          <Property Type="Int32" Name="MemberId" Nullable="false" />
+        </EntityType>
+        <Association Name="TreeOwner">
+          <End Type="CallingTreeModel.Tree" Role="Tree" Multiplicity="*" />
+          <End Type="CallingTreeModel.Member" Role="Member" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tree">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <Association Name="TreeMemberTreeOwner">
+        <Association Name="TreeTreeMember">
+          <End Type="CallingTreeModel.Tree" Role="Tree" Multiplicity="1" />
           <End Type="CallingTreeModel.TreeMember" Role="TreeMember" Multiplicity="*" />
-          <End Type="CallingTreeModel.TreeOwner" Role="TreeOwner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tree">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TreeMember">
+              <PropertyRef Name="TreeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TreeMemberMember">
+          <End Type="CallingTreeModel.TreeMember" Role="TreeMember" Multiplicity="*" />
+          <End Type="CallingTreeModel.Member" Role="Member" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TreeMember">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TreeChat">
+          <End Type="CallingTreeModel.Tree" Role="Tree" Multiplicity="1" />
+          <End Type="CallingTreeModel.Chat" Role="Chat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tree">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Chat">
+              <PropertyRef Name="TreeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChatMember">
+          <End Type="CallingTreeModel.Chat" Role="Chat" Multiplicity="*" />
+          <End Type="CallingTreeModel.Member" Role="Member" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Chat">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -163,24 +266,13 @@
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="CallingTreeModelStoreContainer" CdmEntityContainer="CallingTreeModelContainer">
-    <EntitySetMapping Name="TreeMembers">
-      <EntityTypeMapping TypeName="IsTypeOf(CallingTreeModel.TreeMember)">
-        <MappingFragment StoreEntitySet="TreeMembers">
+    <EntitySetMapping Name="Members">
+      <EntityTypeMapping TypeName="IsTypeOf(CallingTreeModel.Member)">
+        <MappingFragment StoreEntitySet="Members">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
           <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="IsOwner" ColumnName="IsOwner" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="TreeOwners">
-      <EntityTypeMapping TypeName="IsTypeOf(CallingTreeModel.TreeOwner)">
-        <MappingFragment StoreEntitySet="TreeOwners">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="TreeMemberID" ColumnName="TreeMemberID" />
-          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-          <ScalarProperty Name="ListID" ColumnName="ListID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -188,30 +280,31 @@
       <EntityTypeMapping TypeName="IsTypeOf(CallingTreeModel.Chat)">
         <MappingFragment StoreEntitySet="Chats">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-          <ScalarProperty Name="TreeID" ColumnName="TreeID" />
-          <ScalarProperty Name="TreeMemberID" ColumnName="TreeMemberID" />
           <ScalarProperty Name="Messege" ColumnName="Messege" />
           <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="TreeId" ColumnName="TreeId" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="ChatTreeOwner" TypeName="CallingTreeModel.ChatTreeOwner" StoreEntitySet="Chats">
-      <EndProperty Name="TreeOwner">
-        <ScalarProperty Name="Id" ColumnName="TreeOwner_Id" />
-      </EndProperty>
-      <EndProperty Name="Chat">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="TreeMemberTreeOwner" TypeName="CallingTreeModel.TreeMemberTreeOwner" StoreEntitySet="TreeMemberTreeOwner">
-      <EndProperty Name="TreeMember">
-        <ScalarProperty Name="Id" ColumnName="TreeMembers_Id" />
-      </EndProperty>
-      <EndProperty Name="TreeOwner">
-        <ScalarProperty Name="Id" ColumnName="TreeOwners_Id" />
-      </EndProperty>
-    </AssociationSetMapping>
+    <EntitySetMapping Name="Trees">
+      <EntityTypeMapping TypeName="IsTypeOf(CallingTreeModel.Tree)">
+        <MappingFragment StoreEntitySet="Trees">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TreeMembers">
+      <EntityTypeMapping TypeName="IsTypeOf(CallingTreeModel.TreeMember)">
+        <MappingFragment StoreEntitySet="TreeMembers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TreeId" ColumnName="TreeId" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

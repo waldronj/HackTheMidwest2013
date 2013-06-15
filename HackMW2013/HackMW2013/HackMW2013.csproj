@@ -133,9 +133,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Twilio.Api">
-      <HintPath>..\packages\Twilio.3.5.12\lib\3.5\Twilio.Api.dll</HintPath>
-    </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
@@ -196,33 +193,52 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\CallingTreeModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CallingTreeModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CallingTreeModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CallingTreeModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CallingTreeModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CallingTreeModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Chat.cs">
-      <DependentUpon>CallingTreeModel.tt</DependentUpon>
+      <DependentUpon>Model1.Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Chat_Mapping.cs">
+      <DependentUpon>Model1.Mapping.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Member.cs">
+      <DependentUpon>Model1.Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Member_Mapping.cs">
+      <DependentUpon>Model1.Mapping.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Entities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Mapping.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Mapping.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tree.cs">
+      <DependentUpon>Model1.Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SendGrid.cs" />
     <Compile Include="Models\TreeChat.cs" />
     <Compile Include="Models\TreeMember.cs">
-      <DependentUpon>CallingTreeModel.tt</DependentUpon>
+      <DependentUpon>Model1.Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TreeOwner.cs">
-      <DependentUpon>CallingTreeModel.tt</DependentUpon>
+    <Compile Include="Models\TreeMember_Mapping.cs">
+      <DependentUpon>Model1.Mapping.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TreeOwnerController.cs" />
+    <Compile Include="Models\Tree_Mapping.cs">
+      <DependentUpon>Model1.Mapping.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Twilio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -241,7 +257,6 @@
     <Content Include="Content\css\social-icons.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\styleie9.css" />
-    <Content Include="Content\img\signal.png" />
     <Content Include="Content\img\callingTree.jpg" />
     <Content Include="Content\Template\about.html" />
     <Content Include="Content\Template\blog.html" />
@@ -546,42 +561,44 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CallingTreeModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\CallingTreeModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CallingTreeModel.edmx</DependentUpon>
-      <LastGenOutput>CallingTreeModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\CallingTreeModel.edmx.diagram">
-      <DependentUpon>CallingTreeModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Models\CallingTreeModel.edmx.sql" />
-    <Content Include="Models\CallingTreeModel.tt">
+    <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>CallingTreeModel.edmx</DependentUpon>
-      <LastGenOutput>CallingTreeModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model1.Entities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model1.Entities.cs</LastGenOutput>
+      <DependentUpon>CallingTreeModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Model1.Mapping.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model1.Mapping.cs</LastGenOutput>
+      <DependentUpon>CallingTreeModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-2.0.2.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.2.js" />
     <Content Include="Scripts\jquery-2.0.2.min.js" />
     <Content Include="Scripts\jquery-2.0.2.min.map" />
-    <Content Include="Views\TreeOwner\Index.cshtml" />
-    <Content Include="Views\TreeOwner\Details.cshtml" />
-    <Content Include="Views\TreeOwner\Create.cshtml" />
-    <Content Include="Views\TreeOwner\Edit.cshtml" />
-    <Content Include="Views\TreeOwner\Delete.cshtml" />
-    <Content Include="Views\TreeMember\Index.cshtml" />
-    <Content Include="Views\TreeMember\Details.cshtml" />
-    <Content Include="Views\TreeMember\Create.cshtml" />
-    <Content Include="Views\TreeMember\Edit.cshtml" />
-    <Content Include="Views\TreeMember\Delete.cshtml" />
-    <Content Include="Views\TreeChat\Index.cshtml" />
-    <Content Include="Views\TreeChat\Details.cshtml" />
     <Content Include="Views\TreeChat\Create.cshtml" />
-    <Content Include="Views\TreeChat\Edit.cshtml" />
     <Content Include="Views\TreeChat\Delete.cshtml" />
     <Content Include="Views\CallingTree\Invite.cshtml" />
     <Content Include="Views\CallingTree\Test.cshtml" />
     <Content Include="Views\CallingTree\Success.cshtml" />
+    <Content Include="Views\TreeChat\Details.cshtml" />
+    <Content Include="Views\TreeChat\Edit.cshtml" />
+    <Content Include="Views\TreeChat\Index.cshtml" />
+    <Content Include="Views\TreeMember\Create.cshtml" />
+    <Content Include="Views\TreeMember\Delete.cshtml" />
+    <Content Include="Views\TreeMember\Details.cshtml" />
+    <Content Include="Views\TreeMember\Edit.cshtml" />
+    <Content Include="Views\TreeMember\Index.cshtml" />
+    <Content Include="Views\TreeOwner\Create.cshtml" />
+    <Content Include="Views\TreeOwner\Delete.cshtml" />
+    <Content Include="Views\TreeOwner\Details.cshtml" />
+    <Content Include="Views\TreeOwner\Edit.cshtml" />
+    <Content Include="Views\TreeOwner\Index.cshtml" />
     <None Include="Web.config.template" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
