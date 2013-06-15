@@ -14,10 +14,17 @@ namespace HackMW2013.Models
     
     public partial class TreeMember
     {
+        public TreeMember()
+        {
+            this.TreeOwners = new HashSet<TreeOwner>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public string TreeID { get; set; }
+        public bool IsOwner { get; set; }
+    
+        public virtual ICollection<TreeOwner> TreeOwners { get; set; }
     }
 }

@@ -20,5 +20,7 @@ namespace HackMW2013.Models
         public int TreeMemberID { get; set; }
         public string Messege { get; set; }
         public System.TimeSpan TimeStamp { get; set; }
+    
+        public virtual TreeOwner TreeOwner { get; set; }
     }
 }
