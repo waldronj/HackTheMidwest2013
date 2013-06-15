@@ -1,0 +1,53 @@
+﻿@model HackMW2013.Models.Chat
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Chat</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.OwnerID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OwnerID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TreeID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TreeID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TreeMemberID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TreeMemberID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Messege)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Messege)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TimeStamp)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TimeStamp)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

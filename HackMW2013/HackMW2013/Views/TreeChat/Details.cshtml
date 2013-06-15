@@ -1,0 +1,50 @@
+﻿@model HackMW2013.Models.Chat
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Chat</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.OwnerID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OwnerID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TreeID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TreeID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TreeMemberID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TreeMemberID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Messege)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Messege)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TimeStamp)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TimeStamp)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
