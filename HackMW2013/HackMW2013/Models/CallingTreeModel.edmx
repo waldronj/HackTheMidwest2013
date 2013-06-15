@@ -4,11 +4,101 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="CallingTreeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="CallingTreeModelTargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="CallingTreeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="CallingTreeModelStoreContainer">
+    <EntitySet Name="TreeMembers" EntityType="CallingTreeModel.Store.TreeMembers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TreeOwners" EntityType="CallingTreeModel.Store.TreeOwners" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Chats" EntityType="CallingTreeModel.Store.Chats" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TreeMemberTreeOwner" EntityType="CallingTreeModel.Store.TreeMemberTreeOwner" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ChatTreeOwner" Association="CallingTreeModel.Store.ChatTreeOwner">
+      <End Role="Chat" EntitySet="Chats" />
+      <End Role="TreeOwner" EntitySet="TreeOwners" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TreeMemberTreeOwner_TreeMember" Association="CallingTreeModel.Store.FK_TreeMemberTreeOwner_TreeMember">
+      <End Role="TreeMember" EntitySet="TreeMembers" />
+      <End Role="TreeMemberTreeOwner" EntitySet="TreeMemberTreeOwner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TreeMemberTreeOwner_TreeOwner" Association="CallingTreeModel.Store.FK_TreeMemberTreeOwner_TreeOwner">
+      <End Role="TreeOwner" EntitySet="TreeOwners" />
+      <End Role="TreeMemberTreeOwner" EntitySet="TreeMemberTreeOwner" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="TreeMembers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="300" />
+    <Property Name="PhoneNumber" Type="nvarchar" Nullable="false" MaxLength="16" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsOwner" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TreeOwners">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TreeMemberID" Type="int" Nullable="false" />
+    <Property Name="OwnerID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ListID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Chats">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OwnerID" Type="int" Nullable="false" />
+    <Property Name="TreeID" Type="int" Nullable="false" />
+    <Property Name="TreeMemberID" Type="int" Nullable="false" />
+    <Property Name="Messege" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TimeStamp" Type="time" Nullable="false" />
+    <Property Name="TreeOwner_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TreeMemberTreeOwner">
+    <Key>
+      <PropertyRef Name="TreeMembers_Id" />
+      <PropertyRef Name="TreeOwners_Id" />
+    </Key>
+    <Property Name="TreeMembers_Id" Type="int" Nullable="false" />
+    <Property Name="TreeOwners_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ChatTreeOwner">
+    <End Role="Chat" Type="CallingTreeModel.Store.Chats" Multiplicity="*" />
+    <End Role="TreeOwner" Type="CallingTreeModel.Store.TreeOwners" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TreeOwner">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Chat">
+        <PropertyRef Name="TreeOwner_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TreeMemberTreeOwner_TreeMember">
+    <End Role="TreeMember" Type="CallingTreeModel.Store.TreeMembers" Multiplicity="1" />
+    <End Role="TreeMemberTreeOwner" Type="CallingTreeModel.Store.TreeMemberTreeOwner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TreeMember">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TreeMemberTreeOwner">
+        <PropertyRef Name="TreeMembers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TreeMemberTreeOwner_TreeOwner">
+    <End Role="TreeMemberTreeOwner" Type="CallingTreeModel.Store.TreeMemberTreeOwner" Multiplicity="*" />
+    <End Role="TreeOwner" Type="CallingTreeModel.Store.TreeOwners" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TreeOwner">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TreeMemberTreeOwner">
+        <PropertyRef Name="TreeOwners_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="CallingTreeModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -71,13 +161,59 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="CallingTreeModel" />
-        <Alias Key="Target" Value="CallingTreeModel.Store" />
-        <EntityContainerMapping CdmEntityContainer="CallingTreeModelContainer" StorageEntityContainer="CallingTreeModelTargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CallingTreeModelStoreContainer" CdmEntityContainer="CallingTreeModelContainer">
+    <EntitySetMapping Name="TreeMembers">
+      <EntityTypeMapping TypeName="IsTypeOf(CallingTreeModel.TreeMember)">
+        <MappingFragment StoreEntitySet="TreeMembers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="IsOwner" ColumnName="IsOwner" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TreeOwners">
+      <EntityTypeMapping TypeName="IsTypeOf(CallingTreeModel.TreeOwner)">
+        <MappingFragment StoreEntitySet="TreeOwners">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TreeMemberID" ColumnName="TreeMemberID" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+          <ScalarProperty Name="ListID" ColumnName="ListID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Chats">
+      <EntityTypeMapping TypeName="IsTypeOf(CallingTreeModel.Chat)">
+        <MappingFragment StoreEntitySet="Chats">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+          <ScalarProperty Name="TreeID" ColumnName="TreeID" />
+          <ScalarProperty Name="TreeMemberID" ColumnName="TreeMemberID" />
+          <ScalarProperty Name="Messege" ColumnName="Messege" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ChatTreeOwner" TypeName="CallingTreeModel.ChatTreeOwner" StoreEntitySet="Chats">
+      <EndProperty Name="TreeOwner">
+        <ScalarProperty Name="Id" ColumnName="TreeOwner_Id" />
+      </EndProperty>
+      <EndProperty Name="Chat">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TreeMemberTreeOwner" TypeName="CallingTreeModel.TreeMemberTreeOwner" StoreEntitySet="TreeMemberTreeOwner">
+      <EndProperty Name="TreeMember">
+        <ScalarProperty Name="Id" ColumnName="TreeMembers_Id" />
+      </EndProperty>
+      <EndProperty Name="TreeOwner">
+        <ScalarProperty Name="Id" ColumnName="TreeOwners_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">

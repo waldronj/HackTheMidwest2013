@@ -547,6 +547,7 @@
     <Content Include="Models\CallingTreeModel.edmx.diagram">
       <DependentUpon>CallingTreeModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Models\CallingTreeModel.edmx.sql" />
     <Content Include="Models\CallingTreeModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CallingTreeModel.edmx</DependentUpon>
