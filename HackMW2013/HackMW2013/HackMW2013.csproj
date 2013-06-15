@@ -189,6 +189,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CallingTreeController.cs" />
+    <Compile Include="Controllers\TreeChatController.cs" />
+    <Compile Include="Controllers\TreeMemberController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -219,6 +221,7 @@
     <Compile Include="Models\TreeOwner.cs">
       <DependentUpon>CallingTreeModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TreeOwnerController.cs" />
     <Compile Include="Models\Twilio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -560,6 +563,21 @@
     <Content Include="Scripts\jquery-2.0.2.js" />
     <Content Include="Scripts\jquery-2.0.2.min.js" />
     <Content Include="Scripts\jquery-2.0.2.min.map" />
+    <Content Include="Views\TreeOwner\Index.cshtml" />
+    <Content Include="Views\TreeOwner\Details.cshtml" />
+    <Content Include="Views\TreeOwner\Create.cshtml" />
+    <Content Include="Views\TreeOwner\Edit.cshtml" />
+    <Content Include="Views\TreeOwner\Delete.cshtml" />
+    <Content Include="Views\TreeMember\Index.cshtml" />
+    <Content Include="Views\TreeMember\Details.cshtml" />
+    <Content Include="Views\TreeMember\Create.cshtml" />
+    <Content Include="Views\TreeMember\Edit.cshtml" />
+    <Content Include="Views\TreeMember\Delete.cshtml" />
+    <Content Include="Views\TreeChat\Index.cshtml" />
+    <Content Include="Views\TreeChat\Details.cshtml" />
+    <Content Include="Views\TreeChat\Create.cshtml" />
+    <Content Include="Views\TreeChat\Edit.cshtml" />
+    <Content Include="Views\TreeChat\Delete.cshtml" />
     <None Include="Web.config.template" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
