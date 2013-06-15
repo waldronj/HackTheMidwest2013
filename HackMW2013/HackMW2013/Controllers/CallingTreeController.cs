@@ -10,23 +10,48 @@ namespace HackMW2013.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your app description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
+        }
+
+        public ActionResult Invite()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            return View("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Invite(string EmailAddresses)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                string[] EmailAdressList = EmailAddresses.Split(',');
+                foreach (string email in EmailAdressList)
+                {
+                    Guid testGuid;
+                    testGuid = Guid.NewGuid();
+                    ViewBag.testing += email + testGuid + " <br />";
+                }
+                return View("Test");
+            }
+            return View("Index");
+        }
+
+        public ActionResult EmailInvite(string InviteId)
+        {
+            return View("Success");
         }
     }
 }
