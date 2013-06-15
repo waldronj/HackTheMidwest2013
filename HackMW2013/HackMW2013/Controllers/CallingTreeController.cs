@@ -40,12 +40,18 @@ namespace HackMW2013.Controllers
                 string[] EmailAdressList = EmailAddresses.Split(',');
                 foreach (string email in EmailAdressList)
                 {
-                    ViewBag.testing += email + " <br />";
+                    Guid testGuid;
+                    testGuid = Guid.NewGuid();
+                    ViewBag.testing += email + testGuid + " <br />";
                 }
                 return View("Test");
             }
             return View("Index");
+        }
 
+        public ActionResult EmailInvite(string InviteId)
+        {
+            return View("Success");
         }
     }
 }
