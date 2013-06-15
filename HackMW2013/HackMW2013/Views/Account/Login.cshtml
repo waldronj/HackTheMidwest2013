@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Log in";
 }
+<div class="container">
 
 <hgroup class="title">
     <h1>@ViewBag.Title.</h1>
@@ -32,7 +33,7 @@
                 @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
             </li>
         </ol>
-        <input type="submit" value="Log in" />
+        <input type="submit" class="btn btn-primary btn-large" value="Log in" />
     </fieldset>
     <p>
         @Html.ActionLink("Register", "Register") if you don't have an account.
@@ -44,7 +45,7 @@
     <h2>Use another service to log in.</h2>
     @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
 </section>
-
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

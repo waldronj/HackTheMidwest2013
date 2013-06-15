@@ -1,0 +1,36 @@
+﻿@model HackMW2013.Models.TreeOwner
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>TreeOwner</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TreeMemberID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TreeMemberID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.OwnerID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OwnerID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ListID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ListID)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

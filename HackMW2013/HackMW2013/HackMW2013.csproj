@@ -237,6 +237,7 @@
     <Content Include="Content\css\social-icons.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\styleie9.css" />
+    <Content Include="Content\img\signal.png" />
     <Content Include="Content\img\callingTree.jpg" />
     <Content Include="Content\Template\about.html" />
     <Content Include="Content\Template\blog.html" />
@@ -549,6 +550,7 @@
     <Content Include="Models\CallingTreeModel.edmx.diagram">
       <DependentUpon>CallingTreeModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Models\CallingTreeModel.edmx.sql" />
     <Content Include="Models\CallingTreeModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CallingTreeModel.edmx</DependentUpon>
