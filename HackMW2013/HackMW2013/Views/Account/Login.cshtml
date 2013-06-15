@@ -3,8 +3,6 @@
 @{
     ViewBag.Title = "Log in";
 }
-<div class="container">
-
 <hgroup class="title">
     <h1>@ViewBag.Title.</h1>
 </hgroup>
@@ -45,7 +43,6 @@
     <h2>Use another service to log in.</h2>
     @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
 </section>
-</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
