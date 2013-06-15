@@ -17,5 +17,12 @@ namespace HackMW2013.Models
             var client = new TwilioRestClient(AccountSid, AuthToken);
             client.SendSmsMessage(accountNumber, outgoingNumber, "Texting Works this way.");
         }
+
+        public string GetSms(string accountNumber, string outgoingNumber)
+        {
+            var client = new TwilioRestClient(AccountSid, AuthToken);
+            var account = client.GetAccount();
+
+        }
     }
 }
