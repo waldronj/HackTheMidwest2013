@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace HackMW2013.Controllers
 {
-    public class HomeController : Controller
+    public class CallingTreeController : Controller
     {
         public ActionResult Index()
         {
