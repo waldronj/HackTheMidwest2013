@@ -188,12 +188,14 @@
     <Compile Include="Models\Chat.cs">
       <DependentUpon>CallingTreeModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TreeChat.cs" />
     <Compile Include="Models\TreeMember.cs">
       <DependentUpon>CallingTreeModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TreeOwner.cs">
       <DependentUpon>CallingTreeModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Twilio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
