@@ -578,6 +578,8 @@
     <Content Include="Views\TreeChat\Create.cshtml" />
     <Content Include="Views\TreeChat\Edit.cshtml" />
     <Content Include="Views\TreeChat\Delete.cshtml" />
+    <Content Include="Views\CallingTree\Invite.cshtml" />
+    <Content Include="Views\CallingTree\Test.cshtml" />
     <None Include="Web.config.template" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
