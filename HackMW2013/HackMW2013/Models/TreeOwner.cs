@@ -14,9 +14,18 @@ namespace HackMW2013.Models
     
     public partial class TreeOwner
     {
+        public TreeOwner()
+        {
+            this.Chats = new HashSet<Chat>();
+            this.TreeMembers = new HashSet<TreeMember>();
+        }
+    
         public int Id { get; set; }
         public int TreeMemberID { get; set; }
         public string OwnerID { get; set; }
         public int ListID { get; set; }
+    
+        public virtual ICollection<Chat> Chats { get; set; }
+        public virtual ICollection<TreeMember> TreeMembers { get; set; }
     }
 }

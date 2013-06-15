@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="de6c01082cea451783526f7887fe8459" Name="Diagram1" >
-        <EntityTypeShape EntityType="CallingTreeModel.TreeMember" Width="1.5" PointX="7" PointY="5" />
-        <EntityTypeShape EntityType="CallingTreeModel.TreeOwner" Width="1.5" PointX="4.375" PointY="3.5" />
-        <EntityTypeShape EntityType="CallingTreeModel.Chat" Width="1.5" PointX="7.375" PointY="1.125" />
-        <EntityTypeShape EntityType="CallingTreeModel.CallingTreeList" Width="1.5" PointX="9.375" PointY="2" />
-        <EntityTypeShape EntityType="CallingTreeModel.Owner" Width="1.5" PointX="4.625" PointY="1" />
+        <EntityTypeShape EntityType="CallingTreeModel.TreeMember" Width="1.5" PointX="4.375" PointY="4.625" />
+        <EntityTypeShape EntityType="CallingTreeModel.TreeOwner" Width="1.5" PointX="4.125" PointY="1" />
+        <EntityTypeShape EntityType="CallingTreeModel.Chat" Width="1.5" PointX="7.5" PointY="1.5" />
+        <AssociationConnector Association="CallingTreeModel.ChatTreeOwner" />
+        <AssociationConnector Association="CallingTreeModel.TreeMemberTreeOwner" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

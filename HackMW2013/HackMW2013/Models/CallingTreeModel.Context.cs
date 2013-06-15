@@ -28,7 +28,5 @@ namespace HackMW2013.Models
         public DbSet<TreeMember> TreeMembers { get; set; }
         public DbSet<TreeOwner> TreeOwners { get; set; }
         public DbSet<Chat> Chats { get; set; }
-        public DbSet<CallingTreeList> CallingTreeLists { get; set; }
-        public DbSet<Owner> Owners { get; set; }
     }
 }

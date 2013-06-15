@@ -170,9 +170,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\CallingTreeList.cs">
-      <DependentUpon>CallingTreeModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CallingTreeModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -189,9 +186,6 @@
       <DependentUpon>CallingTreeModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Chat.cs">
-      <DependentUpon>CallingTreeModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Owner.cs">
       <DependentUpon>CallingTreeModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TreeMember.cs">
