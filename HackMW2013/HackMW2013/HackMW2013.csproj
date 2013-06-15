@@ -217,6 +217,7 @@
     <Content Include="Content\css\social-icons.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\styleie9.css" />
+    <Content Include="Content\img\signal.png" />
     <Content Include="Content\img\callingTree.jpg" />
     <Content Include="Content\Template\about.html" />
     <Content Include="Content\Template\blog.html" />

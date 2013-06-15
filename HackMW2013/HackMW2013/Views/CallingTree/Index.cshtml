@@ -2,28 +2,82 @@
     ViewBag.Title = "Home Page";
 }
 
-<h3>We suggest the following:</h3>
-<ol class="round">
-    <li class="one">
-        <h5>Getting Started</h5>
-        ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-        enables a clean separation of concerns and that gives you full control over markup
-        for enjoyable, agile development. ASP.NET MVC includes many features that enable
-        fast, TDD-friendly development for creating sophisticated applications that use
-        the latest web standards.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245151">Learn more…</a>
-    </li>
+@section Slider{
 
-    <li class="two">
-        <h5>Add NuGet packages and jump-start your coding</h5>
-        NuGet makes it easy to install and update free libraries and tools.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245153">Learn more…</a>
-    </li>
+    <!-- start: Slider -->
+	<div class="slider-wrapper">
 
-    <li class="three">
-        <h5>Find Web Hosting</h5>
-        You can easily find a web hosting company that offers the right mix of features
-        and price for your applications.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more…</a>
-    </li>
-</ol>
+		<div id="da-slider" class="da-slider">
+			<div class="da-slide">
+				<h2>Use Signal Flare Anywhere</h2>
+				<p>Use your laptop, phone, computer, or tablet to send a Signal Flare to let your friends and family know you're ok.</p>
+				<a href="#" class="da-link">Read more</a>
+				<div class="da-img"><img src="/content/img/parallax-slider/twitter.png" alt="image02" /></div>
+			</div>
+            <div class="da-slide">
+				<h2>Signal Flare</h2>
+				<p>Trying to get in contact with your entire family at once can be quite time consuming in an emergency.</p>
+				<a href="#" class="da-link">Read more</a>				
+			</div>			
+			<nav class="da-arrows">
+				<span class="da-arrows-prev"></span>
+				<span class="da-arrows-next"></span>
+			</nav>
+		</div>
+		
+	</div>
+}
+
+<div class="container">
+			
+			<hr>
+	
+      		<!-- start: Hero Unit - Main hero unit for a primary marketing message or call to action -->
+      		<div class="hero-unit">
+				<h3>
+					Signal<span>Flare</span> is a web application to rapidly communicate with all of your friends and family in a moments notice.
+				</h3>
+        		<p><a href="/callingtree/about" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+      		</div>
+			<!-- end: Hero Unit -->
+      		
+			<hr>
+			
+			<!-- start: Row -->
+			<div class="row">
+				
+				<!-- start: Icon Boxes -->
+				<div class="icons-box-vert-container">
+                    
+					<!-- start: Icon Box Start -->
+					<div class="span4">
+						<div class="icons-box-vert">
+							<i class="ico-ok ico-white circle-color-full"></i>
+							<div class="icons-box-vert-info">
+								<h3>Rapid Communication</h3>
+								<p>From any device send a tweet or a text message to notify all of your friends and family know you are ok.</p>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<!-- end: Icon Box-->
+
+					<!-- start: Icon Box Start -->
+					<div class="span4">
+						<div class="icons-box-vert">
+							<i class="ico-cup  ico-white circle-color-full"></i>
+							<div class="icons-box-vert-info">
+								<h3>Best choice</h3>
+								<p>We're making this application to help people communicate in a time of need, we're here to help</p>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<!-- end: Icon Box -->					
+				</div>
+				<!-- end: Icon Boxes -->
+				<div class="clear"></div>
+			</div>
+			<!-- end: Row -->
+            </div>
+		<!--end: Container-->
