@@ -534,6 +534,7 @@
       <DependentUpon>CallingTreeModel.edmx</DependentUpon>
       <LastGenOutput>CallingTreeModel.cs</LastGenOutput>
     </Content>
+    <None Include="Web.config.template" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
