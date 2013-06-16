@@ -34,8 +34,8 @@ namespace HackMW2013.Controllers
 
         }
 
-        private const string AccountSid = "AC5160b29cfe7044fb634bfe449a47a0c8";
-        private const string AuthToken = "17f74b6c0648f4feabc0a8844fa6665a";
+        private const string AccountSid = "AC7dbe24fc85a63e2ac866490e9948cd44";
+        private const string AuthToken = "622a3e74b340d1d78f478d1a3a2e8ae4";
         public ActionResult MessageReceived(string from, string to, string body)
         {
             var client = new TwilioRestClient(AccountSid, AuthToken);
