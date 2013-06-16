@@ -46,6 +46,7 @@ namespace HackMW2013.Controllers
         {
             Logger.DebugFormat("*** Received text from {0}: {1}", from, body);
             var client = new TwilioRestClient(AccountSid, AuthToken);
+            var SenderName = GetUserName(from.TrimStart('+'));
             var numbersToText = GetMemberPhoneNumbers(from.TrimStart('+'));
             foreach (var item in numbersToText)
             {
@@ -53,7 +54,7 @@ namespace HackMW2013.Controllers
                     continue;
 
                 Logger.DebugFormat("    Sending text to {0}", item);
-                client.SendSmsMessage("+18162988944", item, body);
+                client.SendSmsMessage("+18162988944", item, SenderName + body);
                 Logger.DebugFormat("    Text sent to {0}", item);
             }
             return Content(body, "text/plain");
@@ -94,6 +95,13 @@ namespace HackMW2013.Controllers
             }
 
             return numbers;
+        }
+
+        public string GetUserName(string PhoneNumberFrom)
+        {
+            var name = _context.Members.Where(x => x.PhoneNumber == PhoneNumberFrom).SingleOrDefault().ToString();
+            string UserName = name;
+            return UserName;
         }
     }
 }
