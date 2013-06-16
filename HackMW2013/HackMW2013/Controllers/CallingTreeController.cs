@@ -67,7 +67,7 @@ namespace HackMW2013.Controllers
 
         public ActionResult TestEmail(string InviteId)
         {
-            SendgridEmail("18167299077", "testing");
+            SendgridEmail("19139614662", "testing");
             return View("index");
         }
 
@@ -101,7 +101,7 @@ namespace HackMW2013.Controllers
                 foreach (var m in item.Tree.Members)
                 {
                     if (!emailList.Contains(m.Email))
-                        emailList.Add(item.Email);
+                        emailList.Add(m.Email);
                 }                
             }
             return emailList;
