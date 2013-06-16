@@ -473,6 +473,7 @@
     <Content Include="Content\img\photo9.jpg" />
     <Content Include="Content\img\poland2.png" />
     <Content Include="Content\img\scroll-top-top.png" />
+    <Content Include="Content\img\signal.png" />
     <Content Include="Content\img\slider-control-left.png" />
     <Content Include="Content\img\slider-control-right.png" />
     <Content Include="Content\img\slider-ny.jpg" />
@@ -533,10 +534,7 @@
       <LastGenOutput>Model1.Mapping.cs</LastGenOutput>
       <DependentUpon>CallingTreeModel.edmx</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-2.0.2.intellisense.js" />
-    <Content Include="Scripts\jquery-2.0.2.js" />
-    <Content Include="Scripts\jquery-2.0.2.min.js" />
-    <Content Include="Scripts\jquery-2.0.2.min.map" />
+    <None Include="Properties\PublishProfiles\HackMW2013.pubxml" />
     <Content Include="Views\TreeChat\Create.cshtml" />
     <Content Include="Views\TreeChat\Delete.cshtml" />
     <Content Include="Views\TreeChat\Details.cshtml" />
@@ -552,7 +550,6 @@
     <Content Include="Views\TreeOwner\Details.cshtml" />
     <Content Include="Views\TreeOwner\Edit.cshtml" />
     <Content Include="Views\TreeOwner\Index.cshtml" />
-    <Content Include="Views\CallingTree\Invite.cshtml" />
     <Content Include="Views\CallingTree\Success.cshtml" />
     <Content Include="Views\CallingTree\Test.cshtml" />
     <Content Include="Views\ManageTree\Index.cshtml" />

@@ -337,7 +337,7 @@ namespace HackMW2013.Controllers
             }
             else
             {
-                return RedirectToAction("Invite", "CallingTree");
+                return RedirectToAction("Index", "ManageTree");
             }
         }
 
