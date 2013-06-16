@@ -28,6 +28,8 @@ namespace HackMW2013.Models
               this.Property(t => t.Name).HasColumnName("Name").IsRequired().HasMaxLength(300);
               this.Property(t => t.PhoneNumber).HasColumnName("PhoneNumber").IsRequired().HasMaxLength(16);
               this.Property(t => t.Email).HasColumnName("Email").IsRequired();
+              this.Property(t => t.TreeId).HasColumnName("TreeId");
+              this.HasRequired(t => t.Tree).WithMany(t => t.Members).HasForeignKey(d => d.TreeId);
          }
     }
 }

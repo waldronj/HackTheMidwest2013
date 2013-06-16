@@ -8,12 +8,9 @@
         <EntityTypeShape EntityType="CallingTreeModel.Member" Width="1.5" PointX="1.375" PointY="2" />
         <EntityTypeShape EntityType="CallingTreeModel.Chat" Width="1.5" PointX="7.25" PointY="2" />
         <EntityTypeShape EntityType="CallingTreeModel.Tree" Width="1.5" PointX="5.125" PointY="0.5" />
-        <EntityTypeShape EntityType="CallingTreeModel.TreeMember" Width="1.5" PointX="5" PointY="4.5" />
-        <AssociationConnector Association="CallingTreeModel.TreeOwner" />
-        <AssociationConnector Association="CallingTreeModel.TreeTreeMember" />
-        <AssociationConnector Association="CallingTreeModel.TreeMemberMember" />
         <AssociationConnector Association="CallingTreeModel.TreeChat" />
         <AssociationConnector Association="CallingTreeModel.ChatMember" />
+        <AssociationConnector Association="CallingTreeModel.TreeMember" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
