@@ -23,17 +23,28 @@
                 <tr>
                     <td>Tree Name</td>
                     <td></td>
+                    <td></td>
                 </tr>
             </thead>
             <tbody>
-            @foreach (var tree in Model.Trees)
-            {
-                <tr>
-                    <td>@tree.Name</td>
-                    <td>@Html.ActionLink("edit", "ViewTree", new {id = tree.Id})</td>
-                </tr>
-            }               
+                @foreach (var tree in Model.Trees)
+                {
+                    <tr>
+                        <td>@tree.Name</td>
+                        <td>@Html.ActionLink("edit", "ViewTree", new {id = tree.Id})</td>
+                        <td>@Html.ActionLink("remove", "RemoveTree", new {id = tree.Id})</td>
+                    </tr>
+                }               
             </tbody>
         </table>
     </div>
 </div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+
+        });
+    </script>
+}

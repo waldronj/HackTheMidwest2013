@@ -43,6 +43,23 @@ namespace HackMW2013.Controllers
 
             return RedirectToAction("ViewTree", new {id = tree.Id});
         }
+        
+        public ActionResult RemoveTree(int id)
+        {
+            var tree = _context.Trees.SingleOrDefault(x => x.Id == id);
+
+            if (tree == null || tree.OwnerId != UserId)
+                throw new HttpException(404, String.Format("Tree id {0} not found", id));
+            
+            foreach (var member in tree.Members.ToList())
+                _context.Members.Remove(member);
+
+            _context.Trees.Remove(tree);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
 
         public ActionResult ViewTree(int id)
         {
