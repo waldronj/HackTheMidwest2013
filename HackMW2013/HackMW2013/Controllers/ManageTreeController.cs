@@ -2,20 +2,26 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HackMW2013.Filters;
 using HackMW2013.Models;
 using HackMW2013.ViewModels.ManageTree;
+using WebMatrix.WebData;
 
 namespace HackMW2013.Controllers
 {
+    [InitializeSimpleMembership]
+    [Authorize]
     public class ManageTreeController : Controller
     {
         private readonly CallingTreeModelContainer _context = new CallingTreeModelContainer();
+
+        public int UserId { get { return WebSecurity.GetUserId(User.Identity.Name); } }
 
         public ActionResult Index()
         {
             var model = new ManageTreesModel
                 {
-                    Trees = _context.Trees.ToList()
+                    Trees = _context.Trees.Where(x => x.OwnerId == UserId).ToList()
                 };
 
             return View("ManageTrees", model);
@@ -28,7 +34,8 @@ namespace HackMW2013.Controllers
 
             var tree = new Tree
                 {
-                    Name = model.Name
+                    Name = model.Name,
+                    OwnerId = UserId
                 };
 
             tree = _context.Trees.Add(tree);
@@ -44,7 +51,7 @@ namespace HackMW2013.Controllers
                     Tree = _context.Trees.SingleOrDefault(x => x.Id == id)
                 };
 
-            if (model.Tree == null)
+            if (model.Tree == null || model.Tree.OwnerId != UserId)
                 throw new HttpException(404, String.Format("Tree id {0} not found", id));
 
             return View("Index", model);
@@ -58,7 +65,7 @@ namespace HackMW2013.Controllers
 
             var tree = _context.Trees.SingleOrDefault(x => x.Id == id);
 
-            if (tree == null)
+            if (tree == null || tree.OwnerId != UserId)
                 throw new HttpException(404, String.Format("Tree id {0} not found", id));
 
             tree.Members.Add(new Member
@@ -78,7 +85,7 @@ namespace HackMW2013.Controllers
         {
             var tree = _context.Trees.SingleOrDefault(x => x.Id == id);
 
-            if (tree == null)
+            if (tree == null || tree.OwnerId != UserId)
                 throw new HttpException(404, String.Format("Tree id {0} not found", id));
 
             var member = tree.Members.SingleOrDefault(x => x.Id == memberId);
@@ -98,7 +105,7 @@ namespace HackMW2013.Controllers
         {
             var tree = _context.Trees.SingleOrDefault(x => x.Id == id);
 
-            if (tree == null)
+            if (tree == null || tree.OwnerId != UserId)
                 throw new HttpException(404, String.Format("Tree id {0} not found", id));
 
             var member = tree.Members.SingleOrDefault(x => x.Id == memberId);
