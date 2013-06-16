@@ -190,6 +190,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CallingTreeController.cs" />
     <Compile Include="Controllers\ManageTreeController.cs" />
+    <Compile Include="Controllers\TreeChat.cs" />
     <Compile Include="Controllers\TreeChatController.cs" />
     <Compile Include="Controllers\TreeMemberController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
