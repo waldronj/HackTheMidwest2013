@@ -67,6 +67,9 @@
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
     </Reference>
+    <Reference Include="SendGridMail">
+      <HintPath>..\packages\SendGrid.1.1.1\lib\net40\SendGridMail.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -233,7 +236,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.Mapping.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SendGrid.cs" />
     <Compile Include="Models\Tree.cs">
       <DependentUpon>Model1.Entities.tt</DependentUpon>
     </Compile>

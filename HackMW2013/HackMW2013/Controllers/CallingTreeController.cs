@@ -6,6 +6,10 @@ using System.Web.Mvc;
 using HackMW2013.Models;
 using Twilio;
 using log4net;
+using System.Net.Mail;
+using SendGridMail;
+using System.Net;
+using SendGridMail.Transport;
 
 namespace HackMW2013.Controllers
 {
@@ -44,6 +48,7 @@ namespace HackMW2013.Controllers
         private const string AuthToken = "622a3e74b340d1d78f478d1a3a2e8ae4";
         public ActionResult MessageReceived(string from, string to, string body)
         {
+            SendgridEmail(from, body);
             Logger.DebugFormat("*** Received text from {0}: {1}", from, body);
             var client = new TwilioRestClient(AccountSid, AuthToken);
             var SenderName = GetUserName(from.TrimStart('+'));
@@ -56,30 +61,14 @@ namespace HackMW2013.Controllers
                 Logger.DebugFormat("    Sending text to {0}", item);
                 client.SendSmsMessage("+18162988944", item, SenderName + body);
                 Logger.DebugFormat("    Text sent to {0}", item);
-            }
+            }            
             return Content(body, "text/plain");
         }
 
-        [HttpPost]
-        public ActionResult Invite(string EmailAddresses)
+        public ActionResult TestEmail(string InviteId)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                string[] EmailAdressList = EmailAddresses.Split(',');
-                foreach (string email in EmailAdressList)
-                {
-                    Guid testGuid;
-                    testGuid = Guid.NewGuid();
-                    ViewBag.testing += email + testGuid + " <br />";
-                }
-                return View("Test");
-            }
-            return View("Index");
-        }
-
-        public ActionResult EmailInvite(string InviteId)
-        {
-            return View("Success");
+            SendgridEmail("18167299077", "testing");
+            return View("index");
         }
 
         public IEnumerable<string> GetMemberPhoneNumbers(string texter)
@@ -99,9 +88,60 @@ namespace HackMW2013.Controllers
 
         public string GetUserName(string PhoneNumberFrom)
         {
-            var name = _context.Members.Where(x => x.PhoneNumber == PhoneNumberFrom).SingleOrDefault().ToString();
-            string UserName = name;
+            var name = _context.Members.Where(x => x.PhoneNumber == PhoneNumberFrom).SingleOrDefault().Name.ToString();
+            string UserName = name + ": ";
             return UserName;
+        }
+
+        public IEnumerable<string> GetEmailAddresses(string FromPhoneNumber)
+        {
+            List<string> emailList = new List<string>();
+            foreach (var item in _context.Members.Where(x => x.PhoneNumber == FromPhoneNumber))
+            {
+                foreach (var m in item.Tree.Members)
+                {
+                    if (!emailList.Contains(m.Email))
+                        emailList.Add(item.Email);
+                }                
+            }
+            return emailList;
+        }
+
+        public void SendgridEmail(string fromPhoneNumber, string body)
+        {
+            var emailList = GetEmailAddresses(fromPhoneNumber);
+            string Username = GetUserName(fromPhoneNumber);
+            // Create the email object first, then add the properties.
+            var myMessage = SendGrid.GetInstance();
+
+            // Add the message properties.
+            myMessage.From = new MailAddress("Notification@teamwubwub.com");
+
+            // Add multiple addresses to the To field.
+  
+
+            myMessage.AddTo(emailList);
+
+            myMessage.Subject = "Notification from SignalFlare";
+
+            //Add the HTML and Text bodies
+            myMessage.Html = "<p>"+ Username +  body + "</p>";
+            myMessage.Text = Username + body;
+
+            // Create network credentials to access your SendGrid account.
+            var username = System.Configuration.ConfigurationSettings.AppSettings["SendUsername"];
+            var pswd = System.Configuration.ConfigurationSettings.AppSettings["SendPassword"];
+
+            var credentials = new NetworkCredential(username, pswd);
+
+            // Create the email object first, then add the properties.
+            
+
+            // Create a Web transport for sending email.
+            var transportWeb = Web.GetInstance(credentials);
+
+            // Send the email.
+            transportWeb.Deliver(myMessage);
         }
     }
 }
