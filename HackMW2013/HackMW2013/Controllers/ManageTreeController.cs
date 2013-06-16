@@ -52,5 +52,23 @@ namespace HackMW2013.Controllers
             return RedirectToAction("Index", new { id });
         }
 
+        [HttpPost]
+        public ActionResult RemoveMember(int id, int memberId)
+        {
+            var tree = _context.Trees.SingleOrDefault(x => x.Id == id);
+
+            if (tree == null)
+                throw new HttpException(404, String.Format("Tree id {0} not found", id));
+
+            var member = tree.Members.SingleOrDefault(x => x.Id == memberId);
+
+            tree.Members.Remove(member);
+            _context.Members.Remove(member);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", new { id });
+        }
+
     }
 }
