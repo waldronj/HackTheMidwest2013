@@ -38,7 +38,7 @@
                     <td>@Html.ActionLink("edit", "EditMember", new { treeId = Model.Tree.Id, memberId = member.Id })</td>
                     <td>@using (Html.BeginForm("RemoveMember", "ManageTree", new { id = Model.Tree.Id, memberId = member.Id }))
                         {
-                            @Html.ActionLink("remove", "RemoveMember", "ManageTree", null, new { @class = "saveButton", onclick = "$(this).closest('form')[0].submit(); return false;" })
+                            @Html.ActionLink("remove", "RemoveMember", "ManageTree", null, new { @class = "btn btn-primary", onclick = "$(this).closest('form')[0].submit(); return false;" })
                         }</td>
                 </tr>
             }

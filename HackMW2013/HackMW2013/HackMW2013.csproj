@@ -258,25 +258,6 @@
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\styleie9.css" />
     <Content Include="Content\img\callingTree.jpg" />
-    <Content Include="Content\Template\about.html" />
-    <Content Include="Content\Template\blog.html" />
-    <Content Include="Content\Template\charts.html" />
-    <Content Include="Content\Template\contact.html" />
-    <Content Include="Content\Template\css\bootstrap-responsive.css" />
-    <Content Include="Content\Template\css\bootstrap.css" />
-    <Content Include="Content\Template\css\fancybox.css" />
-    <Content Include="Content\Template\css\font-awesome-ie7.min.css" />
-    <Content Include="Content\Template\css\font-awesome.min.css" />
-    <Content Include="Content\Template\css\fonts\BebasNeue-webfont.svg" />
-    <Content Include="Content\Template\css\hover.css" />
-    <Content Include="Content\Template\css\icons-color.css" />
-    <Content Include="Content\Template\css\icons.css" />
-    <Content Include="Content\Template\css\parallax-slider.css" />
-    <Content Include="Content\Template\css\parallax-slider2.css" />
-    <Content Include="Content\Template\css\social-icons.css" />
-    <Content Include="Content\Template\css\style.css" />
-    <Content Include="Content\Template\css\styleie9.css" />
-    <Content Include="Content\Template\icons.html" />
     <Content Include="Content\img\arrows.png" />
     <Content Include="Content\img\bg-k10.png" />
     <Content Include="Content\img\bg-k20.png" />
@@ -505,10 +486,6 @@
     <Content Include="Content\img\testimonials-right-01.png" />
     <Content Include="Content\img\testimonials-right-02.png" />
     <Content Include="Content\img\web_app1.jpg" />
-    <Content Include="Content\Template\index.html" />
-    <Content Include="Content\Template\index2.html" />
-    <Content Include="Content\Template\index3.html" />
-    <Content Include="Content\Template\index4.html" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\carousel.js" />
     <Content Include="Content\js\custom.js" />
@@ -525,26 +502,8 @@
     <Content Include="Content\js\jquery.imagesloaded.js" />
     <Content Include="Content\js\jquery.isotope.min.js" />
     <Content Include="Content\js\slider.js" />
-    <Content Include="Content\Template\list-styles.html" />
-    <Content Include="Content\Template\login.html" />
-    <Content Include="Content\Template\portfolio3.html" />
-    <Content Include="Content\Template\portfolio4.html" />
-    <Content Include="Content\Template\post.html" />
-    <Content Include="Content\Template\pricing.html" />
-    <Content Include="Content\Template\project.html" />
-    <Content Include="Content\Template\register.html" />
-    <Content Include="Content\Template\services.html" />
-    <Content Include="Content\Template\shortcodes.html" />
-    <Content Include="Content\Template\sliders.html" />
-    <Content Include="Content\Template\social-icons.html" />
-    <Content Include="Content\Template\typography.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Template\contactForm.php" />
-    <Content Include="Content\Template\css\fonts\BebasNeue-webfont-0.eot" />
-    <Content Include="Content\Template\css\fonts\BebasNeue-webfont.eot" />
-    <Content Include="Content\Template\css\fonts\BebasNeue-webfont.ttf" />
-    <Content Include="Content\Template\css\fonts\BebasNeue-webfont.woff" />
     <Content Include="Content\font\fontawesome-webfont-0.eot" />
     <Content Include="Content\font\fontawesome-webfont-62877.eot" />
     <Content Include="Content\font\fontawesome-webfont-62877.ttf" />
@@ -553,10 +512,6 @@
     <Content Include="Content\css\fonts\BebasNeue-webfont.eot" />
     <Content Include="Content\css\fonts\BebasNeue-webfont.ttf" />
     <Content Include="Content\css\fonts\BebasNeue-webfont.woff" />
-    <Content Include="Content\Template\font\fontawesome-webfont-0.eot" />
-    <Content Include="Content\Template\font\fontawesome-webfont-62877.eot" />
-    <Content Include="Content\Template\font\fontawesome-webfont-62877.ttf" />
-    <Content Include="Content\Template\font\fontawesome-webfont-62877.woff" />
     <EntityDeploy Include="Models\CallingTreeModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CallingTreeModel.Designer.cs</LastGenOutput>
@@ -625,19 +580,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Scripts\_references.js" />
-    <Content Include="Images\accent.png" />
-    <Content Include="Images\bullet.png" />
-    <Content Include="Images\heroAccent.png" />
-    <Content Include="Images\orderedList0.png" />
-    <Content Include="Images\orderedList1.png" />
-    <Content Include="Images\orderedList2.png" />
-    <Content Include="Images\orderedList3.png" />
-    <Content Include="Images\orderedList4.png" />
-    <Content Include="Images\orderedList5.png" />
-    <Content Include="Images\orderedList6.png" />
-    <Content Include="Images\orderedList7.png" />
-    <Content Include="Images\orderedList8.png" />
-    <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -648,8 +590,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\CallingTree\About.cshtml" />
-    <Content Include="Views\CallingTree\Contact.cshtml" />
     <Content Include="Views\CallingTree\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
