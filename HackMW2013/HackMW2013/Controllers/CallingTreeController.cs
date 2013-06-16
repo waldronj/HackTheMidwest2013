@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HackMW2013.Models;
 using Twilio;
 
 namespace HackMW2013.Controllers
 {
     public class CallingTreeController : Controller
     {
+        private readonly CallingTreeModelContainer _context = new CallingTreeModelContainer();
+
         public ActionResult Index()
         {
             return View();
@@ -39,10 +42,12 @@ namespace HackMW2013.Controllers
         public ActionResult MessageReceived(string from, string to, string body)
         {
             var client = new TwilioRestClient(AccountSid, AuthToken);
-            client.SendSmsMessage("+18162988944", from, body);
-
+            var numbersToText = GetMemberPhoneNumbers(from);
+            foreach (var item in numbersToText)
+            {
+                client.SendSmsMessage("+18162988944", item, body);    
+            }
             return Content(body, "text/plain");
-
         }
 
         [HttpPost]
@@ -65,6 +70,21 @@ namespace HackMW2013.Controllers
         public ActionResult EmailInvite(string InviteId)
         {
             return View("Success");
+        }
+
+        public IEnumerable<string> GetMemberPhoneNumbers(string texter)
+        {
+            List<string> numbers = new List<string>();
+            foreach (var member in _context.Members.Where(x => x.PhoneNumber == texter))
+            {
+                foreach (var m in member.Tree.Members)
+                {
+                    if (!numbers.Contains(m.PhoneNumber))
+                        numbers.Add(m.PhoneNumber);
+                }
+            }
+
+            return numbers;
         }
     }
 }

@@ -534,7 +534,6 @@
       <LastGenOutput>Model1.Mapping.cs</LastGenOutput>
       <DependentUpon>CallingTreeModel.edmx</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\HackMW2013.pubxml" />
     <Content Include="Views\TreeChat\Create.cshtml" />
     <Content Include="Views\TreeChat\Delete.cshtml" />
     <Content Include="Views\TreeChat\Details.cshtml" />
@@ -556,6 +555,7 @@
     <Content Include="Views\MockUp\ViewTree.cshtml" />
     <Content Include="Views\MockUp\ManageLists.cshtml" />
     <Content Include="Views\ManageTree\ManageTrees.cshtml" />
+    <None Include="Properties\PublishProfiles\HackMW.pubxml" />
     <None Include="Web.config" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
