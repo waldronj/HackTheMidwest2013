@@ -5,11 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using HackMW2013.Models;
 using Twilio;
+using log4net;
 
 namespace HackMW2013.Controllers
 {
     public class CallingTreeController : Controller
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(CallingTreeController));
+
         private readonly CallingTreeModelContainer _context = new CallingTreeModelContainer();
 
         public ActionResult Index()
@@ -41,11 +44,17 @@ namespace HackMW2013.Controllers
         private const string AuthToken = "622a3e74b340d1d78f478d1a3a2e8ae4";
         public ActionResult MessageReceived(string from, string to, string body)
         {
+            Logger.DebugFormat("*** Received text from {0}: {1}", from, body);
             var client = new TwilioRestClient(AccountSid, AuthToken);
             var numbersToText = GetMemberPhoneNumbers(from);
             foreach (var item in numbersToText)
             {
-                client.SendSmsMessage("+18162988944", item, body);    
+                if (item == from)
+                    continue;
+
+                Logger.DebugFormat("    Sending text to {0}", item);
+                client.SendSmsMessage("+18162988944", item, body);
+                Logger.DebugFormat("    Text sent to {0}", item);
             }
             return Content(body, "text/plain");
         }
