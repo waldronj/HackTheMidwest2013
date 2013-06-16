@@ -89,7 +89,7 @@ namespace HackMW2013.Controllers
                 {
                     Name = model.Name,
                     PhoneNumber = model.Phone,
-                    Email = model.Email
+                    Email = string.IsNullOrEmpty(model.Email) ? " " : model.Email
                 });
 
             _context.SaveChanges();
