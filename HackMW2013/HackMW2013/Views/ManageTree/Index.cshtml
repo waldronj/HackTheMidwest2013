@@ -23,6 +23,7 @@
     <div class="span6">
         <table class="table table-striped table-hover">
             <tr>
+                <td style="display: none"></td>
                 <td>Name</td>
                 <td>Phone</td>
                 <td>Email</td>
@@ -32,17 +33,88 @@
             @foreach (var member in Model.Tree.Members)
             {
                 <tr>
-                    <td>@member.Name</td>
-                    <td>@member.PhoneNumber</td>
-                    <td>@member.Email</td>
-                    <td>@Html.ActionLink("edit", "EditMember", new { treeId = Model.Tree.Id, memberId = member.Id })</td>
-                    <td>@using (Html.BeginForm("RemoveMember", "ManageTree", new { id = Model.Tree.Id, memberId = member.Id }))
-                        {
-                            @Html.ActionLink("remove", "RemoveMember", "ManageTree", null, new { @class = "btn btn-primary", onclick = "$(this).closest('form')[0].submit(); return false;" })
-                        }</td>
+                    <td style="display: none" class="editable" data-name="memberId">@member.Id</td>
+                    <td class="editable" data-name="name">@member.Name</td>
+                    <td class="editable" data-name="phone">@member.PhoneNumber</td>
+                    <td class="editable" data-name="email">@member.Email</td>
+                    <td><a class="editLink">edit</a></td>
+                    <td><a class="removeLink">remove</a></td>
                 </tr>
             }
         </table>
     </div>
 
 </div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            function convertToEdit() {
+                var row = $(this).closest("tr")[0];
+                $(this).html('save');
+
+                $('.editable', row).each(function (i, elem) {
+                    var input = $("<input type='text' />");
+                    var html = $(this).html();
+                    input.val(html);
+                    $(this).html(input);
+                });
+
+                $(this).unbind();
+                $(this).click(saveEdit);
+            }
+
+            function saveEdit() {
+                var data = {};
+                var link = $(this);
+
+                var row = $(this).closest("tr")[0];
+                $(this).html('saving');
+
+                $('.editable', row).each(function (i, elem) {
+                    var name = $(elem).attr('data-name');
+                    var value = $('input', elem).val();
+                    data[name] = value;
+                });
+
+                $.ajax({
+                    url: '@Url.Content("~/ManageTree/EditMember/" + Model.Tree.Id)',
+                        type: 'POST',
+                        data: data
+                }).complete(function () {
+                    link.html('edit');
+                    link.unbind();
+                    link.click(convertToEdit);
+                    $('.editable', row).each(function (i, elem) {                        
+                        var value = $('input', this).val();
+                        $(this).html(value);
+                    });
+                });
+            }
+
+            $(".editLink").click(convertToEdit);
+            $(".removeLink").click(function () {
+                var data = {};
+                var link = $(this);
+
+                var row = $(this).closest("tr")[0];
+                link.html('removing');
+
+                $('.editable:hidden', row).each(function (i, elem) {
+                    var name = $(elem).attr('data-name');
+                    var value = $(elem).html();
+                    data[name] = value;
+                });
+
+                $.ajax({
+                    url: '@Url.Content("~/ManageTree/RemoveMember/" + Model.Tree.Id)',
+                     type: 'POST',
+                     data: data
+                 }).complete(function () {
+                     $(row).remove();
+                 });
+            });
+        });
+    </script>
+    }
