@@ -46,10 +46,10 @@ namespace HackMW2013.Controllers
         {
             Logger.DebugFormat("*** Received text from {0}: {1}", from, body);
             var client = new TwilioRestClient(AccountSid, AuthToken);
-            var numbersToText = GetMemberPhoneNumbers(from);
+            var numbersToText = GetMemberPhoneNumbers(from.TrimStart('+'));
             foreach (var item in numbersToText)
             {
-                if (item == from)
+                if (item == from.TrimStart('+'))
                     continue;
 
                 Logger.DebugFormat("    Sending text to {0}", item);
