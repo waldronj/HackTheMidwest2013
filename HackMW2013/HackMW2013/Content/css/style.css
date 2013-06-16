@@ -2574,4 +2574,19 @@ form#newsletter input[type=submit] {
 	}
 	
 }
-	
+
+.chatArea
+{
+    background-color: #ccc;    
+}
+
+.chatContent
+{
+    padding-top: 1em;
+    padding-left: 1em;
+}
+
+.span9 form
+{
+    padding: 1em;
+}
