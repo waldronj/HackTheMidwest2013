@@ -16,5 +16,9 @@ namespace HackMW2013.Controllers
             return View();
         }
 
+        public ActionResult ManageLists()
+        {
+            return View();
+        }
     }
 }
