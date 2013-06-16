@@ -17,16 +17,15 @@ namespace HackMW2013.Models
     {
         public Tree()
         {
-            this.Members = new HashSet<TreeMember>();
             this.Chats = new HashSet<Chat>();
+            this.Members = new HashSet<Member>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public int OwnerId { get; set; }
     
-        public virtual Member Owner { get; set; }
-        public virtual ICollection<TreeMember> Members { get; set; }
         public virtual ICollection<Chat> Chats { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
     }
 }

@@ -17,7 +17,6 @@ namespace HackMW2013.Models
     {
         public Member()
         {
-            this.Trees = new HashSet<TreeMember>();
             this.Chats = new HashSet<Chat>();
         }
     
@@ -25,8 +24,9 @@ namespace HackMW2013.Models
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        public int TreeId { get; set; }
     
-        public virtual ICollection<TreeMember> Trees { get; set; }
         public virtual ICollection<Chat> Chats { get; set; }
+        public virtual Tree Tree { get; set; }
     }
 }

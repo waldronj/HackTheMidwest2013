@@ -45,12 +45,10 @@ namespace HackMW2013.Models
     		modelBuilder.Configurations.Add(new Chat_Mapping());
     		modelBuilder.Configurations.Add(new Member_Mapping());
     		modelBuilder.Configurations.Add(new Tree_Mapping());
-    		modelBuilder.Configurations.Add(new TreeMember_Mapping());
         }
     	
         public DbSet<Member> Members { get; set; }
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Tree> Trees { get; set; }
-        public DbSet<TreeMember> TreeMembers { get; set; }
     }
 }

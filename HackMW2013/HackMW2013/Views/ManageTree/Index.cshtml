@@ -1,20 +1,20 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-
-<h2>Manage Tree</h2>
+@model HackMW2013.ViewModels.ManageTree.ManageTreeModel
+<h2>Manage Tree @Model.Tree.Name</h2>
 <div class="row">
     <div class="span6">
         <h3>Add Member</h3>
-        <form>
+        @Html.BeginForm("AddMember", "ManageTree", new { id = Model.Tree.Id })
             <label>Name:</label>
-            <input type ="text" />
+            @Html.EditorFor(x => x.Name)
             <br />
             <label>Phone:</label>
-            <input type="text" />
+            @Html.EditorFor(x => x.Phone)
             <br />
             <label>Email:</label>
-            <input type="text" />
+            @Html.EditorFor(x => x.Email)
             <br />
             <input type="submit" class="btn btn-primary btn-large"/>
         </form>
@@ -26,16 +26,14 @@
                 <td>Phone</td>
                 <td>Email</td>
             </tr>
-            <tr>
-                <td>Josh</td>
-                <td>8167299077</td>
-                <td>jwaldron@@egov.com</td>
-            </tr>
-            <tr>
-                <td>Curtis</td>
-                <td>4119119111</td>
-                <td>ccockerham@@egov.com</td>
-            </tr>
+            @foreach (var member in Model.Tree.Members)
+            {
+                <tr>
+                    <td>@member.Name</td>
+                    <td>@member.PhoneNumber</td>
+                    <td>@member.Email</td>
+                </tr>
+            }
         </table>
     </div>
 

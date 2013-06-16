@@ -193,7 +193,6 @@
     <Compile Include="Controllers\MockUpController.cs" />
     <Compile Include="Controllers\TreeChat.cs" />
     <Compile Include="Controllers\TreeChatController.cs" />
-    <Compile Include="Controllers\TreeMemberController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -236,17 +235,12 @@
       <DependentUpon>Model1.Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TreeChat.cs" />
-    <Compile Include="Models\TreeMember.cs">
-      <DependentUpon>Model1.Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TreeMember_Mapping.cs">
-      <DependentUpon>Model1.Mapping.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Tree_Mapping.cs">
       <DependentUpon>Model1.Mapping.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Twilio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ManageTree\ManageTreeModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap-responsive.css" />
