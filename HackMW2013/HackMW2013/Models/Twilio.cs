@@ -23,6 +23,8 @@ namespace HackMW2013.Models
             var client = new TwilioRestClient(AccountSid, AuthToken);
             var account = client.GetAccount();
 
+            return null;
+
         }
     }
 }
