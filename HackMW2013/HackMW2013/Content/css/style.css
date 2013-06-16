@@ -2629,3 +2629,38 @@ width: 62px;
     text-decoration: none;
     background-color: #29a9df;
 }
+
+.editLink, .editLink hover
+{
+   cursor: pointer;
+}
+
+.removeLink, .removeLink hover
+{
+    cursor: pointer;
+}
+
+.table-width
+{
+    min-width:638px;
+}
+
+.table-width td
+{
+    width:180px;
+}
+
+.table-width td:end, .table-width td:nth-last-child(-n+2)
+{
+    width:41px;
+}
+
+.table-width input
+{
+    height:14px;
+}
+
+.table-width tr
+{
+    height:51px;
+}
