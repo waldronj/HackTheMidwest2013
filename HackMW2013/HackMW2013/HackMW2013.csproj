@@ -241,6 +241,7 @@
     <Compile Include="Models\Twilio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ManageTree\ManageTreeModel.cs" />
+    <Compile Include="ViewModels\ManageTree\ManageTreesModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap-responsive.css" />
@@ -557,6 +558,7 @@
     <Content Include="Views\ManageTree\Index.cshtml" />
     <Content Include="Views\MockUp\ViewTree.cshtml" />
     <Content Include="Views\MockUp\ManageLists.cshtml" />
+    <Content Include="Views\ManageTree\ManageTrees.cshtml" />
     <None Include="Web.config.template" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />

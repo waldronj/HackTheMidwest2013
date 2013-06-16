@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,14 +9,37 @@ namespace HackMW2013.Controllers
 {
     public class ManageTreeController : Controller
     {
-        //
-        // GET: /ManageTree/Index/{id}
-
         private readonly CallingTreeModelContainer _context = new CallingTreeModelContainer();
 
-        public ActionResult Index(int id)
+        public ActionResult Index()
         {
-            var model = new ManageTreeModel()
+            var model = new ManageTreesModel
+                {
+                    Trees = _context.Trees.ToList()
+                };
+
+            return View("ManageTrees", model);
+        }
+
+        public ActionResult AddTree(ManageTreesModel model)
+        {
+            if (!ModelState.IsValid)
+                return RedirectToAction("Index");
+
+            var tree = new Tree
+                {
+                    Name = model.Name
+                };
+
+            tree = _context.Trees.Add(tree);
+            _context.SaveChanges();
+
+            return RedirectToAction("ViewTree", new {id = tree.Id});
+        }
+
+        public ActionResult ViewTree(int id)
+        {
+            var model = new ManageTreeModel
                 {
                     Tree = _context.Trees.SingleOrDefault(x => x.Id == id)
                 };
@@ -26,21 +47,21 @@ namespace HackMW2013.Controllers
             if (model.Tree == null)
                 throw new HttpException(404, String.Format("Tree id {0} not found", id));
 
-            return View(model);
+            return View("Index", model);
         }
 
         [HttpPost]
         public ActionResult AddMember(int id, ManageTreeModel model)
         {
             if (!ModelState.IsValid)
-                return RedirectToAction("Index");
+                return RedirectToAction("ViewTree");
 
             var tree = _context.Trees.SingleOrDefault(x => x.Id == id);
 
             if (tree == null)
                 throw new HttpException(404, String.Format("Tree id {0} not found", id));
 
-            tree.Members.Add(new Member()
+            tree.Members.Add(new Member
                 {
                     Name = model.Name,
                     PhoneNumber = model.Phone,
@@ -49,7 +70,7 @@ namespace HackMW2013.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction("Index", new { id });
+            return RedirectToAction("ViewTree", new {id});
         }
 
         [HttpPost]
@@ -87,6 +108,5 @@ namespace HackMW2013.Controllers
 
             _context.SaveChanges();
         }
-
     }
 }
